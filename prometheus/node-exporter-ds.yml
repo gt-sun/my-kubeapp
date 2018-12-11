@@ -47,6 +47,10 @@ spec:
               memory: 50Mi
       hostNetwork: true
       hostPID: true
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoSchedule"  # 支持master节点
       volumes:
         - name: proc
           hostPath:
