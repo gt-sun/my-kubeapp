@@ -12,13 +12,13 @@ data:
       resolve_timeout: 5m
       smtp_require_tls: true
       smtp_smarthost: 'smtp.163.com:994'
-      smtp_from: 'bvaccc@163.com'
-      smtp_auth_username: 'bvaccc@163.com'
-      smtp_auth_password: 'Dara6unahcho'
+      smtp_from: 'abc@163.com'
+      smtp_auth_username: 'abc@163.com'
+      smtp_auth_password: 'xxxxx'
     receivers:
     - name: carl
       email_configs:
-      - to: 'bvac@qq.com'
+      - to: 'abc@qq.com'
     route:
       group_by: ['alertname']
       group_interval: 5m
