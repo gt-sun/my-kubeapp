@@ -56,3 +56,6 @@ metrice-server 无法获取资源信息，查看日志发现报错证书问题�
 ```
 
 
+### 参考
+
+- https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
