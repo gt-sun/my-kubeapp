@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  use-proxy-protocol: "true"
+  #proxy-real-ip-cidr: "10.0.104.0/24"
+kind: ConfigMap
+metadata:
+  name: custom-headers
+  namespace: ingress-nginx
