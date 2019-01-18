@@ -6,8 +6,69 @@
 2. https://www.qikqiak.com/post/prometheus-operator-advance/
 
 
+## install with helm
 
-## 部署
+```bash
+$ helm install \
+    --name prom \
+    --namespace monitoring \
+    -f custom-values.yaml \
+    stable/prometheus-operator
+
+$ cat > custom-values.yaml <<EOF
+# Depending on which DNS solution you have installed in your cluster enable the right exporter
+coreDns:
+  enabled: false
+
+kubeDns:
+  enabled: true
+
+alertmanager:
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          selector:
+            matchLabels:
+              app: my-example-alertmanager
+          resources:
+            requests:
+              storage: 50Gi
+
+prometheus:
+  prometheusSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          selector:
+            matchLabels:
+              app: my-example-prometheus
+          resources:
+            requests:
+              storage: 50Gi
+
+# 参考：https://github.com/helm/charts/blob/master/stable/grafana/README.md
+grafana:
+  adminPassword: "YourPass123#"
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - grafana.test.akomljen.com
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.test.akomljen.com
+  persistence:
+    enabled: true
+    accessModes: ["ReadWriteOnce"]
+    size: 10Gi
+EOF
+```
+
+## install
 
 ```bash
 $ k apply -f manifests/
