@@ -80,10 +80,19 @@ $ k apply -f manifests/
 
 ```bash
 $ vim my-external-node-exporter.yaml
+- job_name: node-exporter
+  static_configs:
+  - targets: ['10.0.106.150:9100']
+    labels:
+      name: runner-local
+      group: gitlab-runner
 $ kubectl create secret generic additional-configs --from-file=my-external-node-exporter.yaml -n monitoring
 $ vim prometheus-prometheus.yaml
 // add
-additionalScrapeConfigs:
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+spec:
+  additionalScrapeConfigs:
     name: additional-configs
     key: my-external-node-exporter.yaml
 
